@@ -3,10 +3,20 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import moment from "moment";
+// motion
+import { motion } from "framer-motion";
+// variants
+import { fedIn } from "../varints";
 
 export default function Recommendation({ data, type }) {
   return (
-    <Link
+    <motion.div 
+    variants={fedIn("up", 0.1)} 
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: false, amount: 0.3 }}
+    >
+      <Link
       to={`/home/${type}/${data?.id}`}
       className="w-full min-w-[230px] max-w-[230px] h-80 overflow-hidden block relative hover:scale-105 transition-all rounded-lg"
     >
@@ -42,6 +52,7 @@ export default function Recommendation({ data, type }) {
         <p>{moment(data?.release_date).format("MMMM Do YYYY")}</p>
       </div>
     </Link>
+    </motion.div>
   );
 }
 

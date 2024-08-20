@@ -79,7 +79,7 @@ export default function TopRatedHome() {
           variants={fedIn('up', 0.2)}
           initial="hidden"
           whileInView="show"
-          viewport={{ once: false, amount: 0.7 }}
+          viewport={{ once: false, amount: 0.2 }}
           className="text-xl lg:text-2xl font-bold mb-3 text-white capitalize">
             Top Rated
           </motion.h2>
@@ -122,9 +122,9 @@ export default function TopRatedHome() {
           </div>
         ) : data?.length > 0 ? (
           <Slider {...settings2} className="mx-4">
-            {data.map((item) => (
+            {data.map((item,index) => (
               <motion.div 
-              variants={fedIn('up', 0.2)}
+              variants={fedIn('up', index * 0.1)}
             initial="hidden"
             whileInView="show"
             viewport={{ once: false, amount: 0.7 }}

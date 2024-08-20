@@ -113,7 +113,7 @@ export default function TV() {
               variants={fedIn('up', index * 0.1)} // Applying motion to each card
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: false, amount: 0.7 }}
+                viewport={{ once: false, amount: 0.2 }}
               className="" key={item.id}>
                 <Link
                   to={`/home/tv/${item.id}`} // Correctly set media_type and id

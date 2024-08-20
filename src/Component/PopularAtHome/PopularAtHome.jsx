@@ -275,7 +275,7 @@ export default function PopularAtHome() {
             variants={fedIn('up', 0.2)}
             initial="hidden"
             whileInView="show"
-            viewport={{ once: false, amount: 0.7 }}
+            viewport={{ once: false, amount: 0.2 }}
             className="mb-5 border-2 border-orange-800 rounded-[30px] cursor-pointer mx-4 flex justify-center">
             <button
               className={`px-5 py-1 border-0 rounded-[30px] transition duration-75 ease-in ${
@@ -310,12 +310,12 @@ export default function PopularAtHome() {
           </div>
         ) : data?.length > 0 ? (
           <Slider {...settings2} className="mx-4">
-            {data.map((item) => (
+            {data.map((item,index) => (
               <motion.div 
-                variants={fedIn('up', 0.2)}
+                variants={fedIn('up', index*.1)}
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: false, amount: 0.7 }}
+                viewport={{ once: false, amount: 0.2 }}
                 className="" key={item.id}>
                 <Link
                   to={`/home/${media_type}/${item.id}`}

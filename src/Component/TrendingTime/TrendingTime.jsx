@@ -111,12 +111,12 @@ export default function TrendingTime() {
           </div>
         ) : data?.results?.length > 0 ? (
           <Slider {...settings2} className="mx-4">
-            {data.results.map((item) => (
+            {data.results.map((item,index) => (
               <motion.div 
-              variants={fedIn('up', 0.2)}
+              variants={fedIn('up', index * 0.1)}
                   initial="hidden"
                   whileInView="show"
-                  viewport={{ once: false, amount: 0.7 }}
+                  viewport={{ once: false, amount: 0.2 }}
               className="" key={item.id}>
                 <Link
                   to={`/home/${item.media_type}/${item.id}`}

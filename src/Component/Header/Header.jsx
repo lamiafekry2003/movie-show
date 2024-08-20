@@ -16,8 +16,8 @@ export default function Header() {
   }
 
   return (
-    <div className="w-full lg:min-h-screen flex flex-col overflow-hidden">
-      <div className="flex flex-col flex-grow lg:max-h-screen overflow-hidden">
+    <div className="w-full lg:min-h-screen flex flex-col">
+      <div className="flex flex-col flex-grow lg:max-h-screen ">
         <Carousel
           autoPlay={true}
           showArrows={false}

@@ -293,7 +293,7 @@ export default function Movie() {
                 variants={fedIn('up', index * 0.1)} // Applying motion to each card
                 initial="hidden"
                 whileInView="show"
-                viewport={{ once: false, amount: 0.7 }}
+                viewport={{ once: false, amount: 0.2 }}
                 className="my-3"
               >
                 <Link
