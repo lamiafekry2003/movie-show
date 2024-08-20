@@ -14,10 +14,12 @@ export default function Home() {
         <link rel="icon" href={tvIcon} />
       </Helmet>
       
-      <Header />     
+     <div className=" flex flex-col">
+     <Header />     
       <TrendingTime />
       <PopularAtHome />
       <TopRatedHome />
+     </div>
     </>
   );
 }
