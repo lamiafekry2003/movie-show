@@ -21,6 +21,20 @@ export default function Navbar() {
     }
   };
 
+  const handleSearchClick = () => {
+    setSearchClick(!searchClick);
+    if (!searchClick) {
+      setIconClick(false); // Close the navbar if the search is opened
+    }
+  };
+
+  const handleToggleClick = () => {
+    setIconClick(!iconClick);
+    if (!iconClick) {
+      setSearchClick(false); // Close the search if the navbar is opened
+    }
+  };
+
   return (
     <nav className="fixed top-0 w-full h-16 bg-black bg-opacity-50 z-40">
       <div className="max-w-full flex flex-wrap items-center justify-between mx-auto p-4">
@@ -35,7 +49,7 @@ export default function Navbar() {
         <div className="flex md:order-2">
           <button
             type="button"
-            onClick={() => setSearchClick(!searchClick)}
+            onClick={handleSearchClick}
             data-collapse-toggle="navbar-search"
             aria-controls="navbar-search"
             aria-expanded="false"
@@ -94,7 +108,7 @@ export default function Navbar() {
             </div>
           </div>
           <button
-            onClick={() => setIconClick(!iconClick)}
+            onClick={handleToggleClick}
             data-collapse-toggle="navbar-search"
             type="button"
             className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500  dark:text-neutral-400 rounded-lg md:hidden"
