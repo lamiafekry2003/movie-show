@@ -97,7 +97,7 @@ export default function Navbar() {
             onClick={() => setIconClick(!iconClick)}
             data-collapse-toggle="navbar-search"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 dark:text-neutral-400 rounded-lg md:hidden"
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500  dark:text-neutral-400 rounded-lg md:hidden"
             aria-controls="navbar-search"
             aria-expanded="false"
           >
@@ -125,7 +125,7 @@ export default function Navbar() {
           } items-center justify-between w-full md:flex md:w-auto md:order-1`}
           id="navbar-search"
         >
-          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium border border-gray-100  rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+          <ul className="flex flex-col p-4 md:p-0 mt-4 font-medium   bg-neutral-900 md:bg-transparent  rounded-lg md:space-x-8 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
             <li>
               <NavLink
                 to="movie"

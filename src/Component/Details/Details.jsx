@@ -288,7 +288,7 @@ export default function Details() {
 
       {/* Video Player  */}
       {isVideoPlaying && videoData && (
-        <VideoPlay videoKey={videoData.key} closeVideo={closeVideo} />
+        <VideoPlay videoKey={videoData.key} closeVideo={closeVideo}  />
       )}
     </div>
   );
