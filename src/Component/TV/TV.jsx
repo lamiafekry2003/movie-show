@@ -1,15 +1,17 @@
-// import { Stack } from "@mui/material";
+import { motion } from "framer-motion";
 import { Pagination, Stack } from "@mui/material";
 import axios from "axios";
-// import { Pagination } from "flowbite-react";
 import moment from "moment";
 import { useState } from "react";
 import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
+import { Helmet } from "react-helmet";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import tvIcon from "../../assets/tv.svg"
+import { fedIn } from "../varints";
 
 const fetchMovie = async (type, page) => {
-  const apiKey = "4506a33c6fd8b3db74243b36650bd7fb"; // Replace with your API key
+  const apiKey = "4506a33c6fd8b3db74243b36650bd7fb"; 
 //   const page = queryKey[2]; // Get the page number from queryKey
   const url = `https://api.themoviedb.org/3/tv/${type}?api_key=${apiKey}&page=${page}`; // Corrected endpoint and query parameters
   const response = await axios.get(url);
@@ -41,12 +43,27 @@ export default function TV() {
 
   return (
     <div className="container mx-auto px-3 my-20">
+       <Helmet>
+        <title>Movie-show</title>
+        <meta name="description" content="Helmet application" />
+        <link rel="icon" href={tvIcon} />
+      </Helmet>
       <div className="relative">
         <div className="flex flex-col lg:flex-row justify-center items-center lg:justify-between">
-          <h2 className="text-xl lg:text-2xl font-bold mb-3 text-white capitalize">
+          <motion.h2 
+           variants={fedIn('up', 0.2)}
+           initial="hidden"
+           whileInView="show"
+           viewport={{ once: false, amount: 0.7 }}
+          className="text-xl lg:text-2xl font-bold mb-3 text-white capitalize">
             {type.replace("_", " ")}
-          </h2>
-          <div className="mb-5 border-2 border-orange-800 rounded-[30px] cursor-pointer mx-4 flex justify-center">
+          </motion.h2>
+          <motion.div 
+          variants={fedIn("up", 0.2)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0.7 }}
+          className="mb-5 border-2 border-orange-800 rounded-[30px] cursor-pointer mx-4 flex justify-center">
             <button
               className={`px-2 md:px-5 py-1 border-0 rounded-[30px] transition duration-75 ease-in ${
                 type === "popular"
@@ -87,12 +104,17 @@ export default function TV() {
             >
              Airing today
             </button>
-          </div>
+          </motion.div>
         </div>
         <div className="  flex flex-col  justify-center items-center mx-4 md:grid gap-2 sm:grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
           {data?.length > 0 ? (
-            data.map((item) => (
-              <div className="" key={item.id}>
+            data.map((item,index) => (
+              <motion.div 
+              variants={fedIn('up', index * 0.1)} // Applying motion to each card
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: false, amount: 0.7 }}
+              className="" key={item.id}>
                 <Link
                   to={`/home/tv/${item.id}`} // Correctly set media_type and id
                   className="w-full min-w-[230px] max-w-[230px] h-80 overflow-hidden block relative hover:scale-105 transition-all rounded-lg my-3"
@@ -131,7 +153,7 @@ export default function TV() {
                     <p>{moment(item?.release_date).format("MMMM Do YYYY")}</p>
                   </div>
                 </Link>
-              </div>
+              </motion.div>
             ))
           ) : (
             <div className="text-white">No {type.replace("_", " ")} found.</div>

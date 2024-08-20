@@ -25,6 +25,8 @@ import Home from "./Pages/Home/Home";
 import Details from "./Component/Details/Details";
 import Movie from "./Component/Movie/Movie";
 import TV from "./Component/TV/TV";
+import SearchPage from "./Pages/SearchPage/SearchPage";
+import NotFound from "./Pages/NotFound/NotFound";
 
 export default function App() {
   const routes = createBrowserRouter([
@@ -38,6 +40,8 @@ export default function App() {
         { path: 'movie/:id', element: <Details /> },
         {path:'tv',element:<TV/>},
         { path: 'tv/:id', element: <Details /> },
+        {path:'search',element:<SearchPage/>},
+        {path:'*',element:<NotFound/>}
       ],
     },
   ]);

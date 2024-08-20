@@ -5,30 +5,28 @@ import { buildStyles, CircularProgressbar } from "react-circular-progressbar";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import Slider from "react-slick";
+import LoadingCard from "../LoadingCard/LoadingCard"; 
+// motion
+import { motion } from 'framer-motion';
+// variants
+import { fedIn } from '../varints'
 
+// Function to fetch top-rated media (movie or TV show)
 const fetchTopRated = async (media_type) => {
-  const apiKey = "4506a33c6fd8b3db74243b36650bd7fb"; // Replace with your API key
-  const url = `https://api.themoviedb.org/3/${media_type}/top_rated?api_key=${apiKey}`; // Corrected endpoint
+  const apiKey = "4506a33c6fd8b3db74243b36650bd7fb";
+  const url = `https://api.themoviedb.org/3/${media_type}/top_rated?api_key=${apiKey}`;
   const response = await axios.get(url);
   return response.data.results;
 };
 
 export default function TopRatedHome() {
-  const [media_type, setMedia_type] = useState("movie");
+  const [media_type, setMediaType] = useState("movie");
 
-  const { data, error, isLoading } = useQuery(
+  const { data,  isLoading } = useQuery(
     ["topRated", media_type],
     () => fetchTopRated(media_type),
     { keepPreviousData: true }
   );
-
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
 
   const settings2 = {
     dots: false,
@@ -77,19 +75,29 @@ export default function TopRatedHome() {
     <div className="container mx-auto px-3 my-10">
       <div className="relative">
         <div className="flex justify-between">
-          <h2 className="text-xl lg:text-2xl font-bold mb-3 text-white capitalize">
+          <motion.h2 
+          variants={fedIn('up', 0.2)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0.7 }}
+          className="text-xl lg:text-2xl font-bold mb-3 text-white capitalize">
             Top Rated
-          </h2>
-          <div className="mb-5 border-2 border-orange-800 rounded-[30px] cursor-pointer mx-4 flex justify-center">
+          </motion.h2>
+          <motion.div 
+          variants={fedIn('up', 0.2)}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: false, amount: 0.7 }}
+          className="mb-5 border-2 border-orange-800 rounded-[30px] cursor-pointer mx-4 flex justify-center">
             <button
               className={`px-5 py-1 border-0 rounded-[30px] transition duration-75 ease-in ${
                 media_type === "movie"
                   ? " bg-gradient-to-l from-red-700 to-orange-500 text-white"
                   : ""
               }`}
-              onClick={() => setMedia_type("movie")}
+              onClick={() => setMediaType("movie")}
             >
-              Movie
+              Movies
             </button>
             <button
               className={`px-5 py-1 border-0 rounded-[30px] transition duration-75 ease-in-out ${
@@ -97,18 +105,32 @@ export default function TopRatedHome() {
                   ? " bg-gradient-to-l from-red-700 to-orange-500 text-white"
                   : ""
               }`}
-              onClick={() => setMedia_type("tv")}
+              onClick={() => setMediaType("tv")}
             >
               TV Shows
             </button>
-          </div>
+          </motion.div>
         </div>
-        <Slider {...settings2} className="mx-4">
-          {data?.length > 0 ? (
-            data.map((item) => (
-              <div className="" key={item.id}>
+
+        {isLoading ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mx-4">
+            {Array(6)
+              .fill(0)
+              .map((_, index) => (
+                <LoadingCard key={index} />
+              ))}
+          </div>
+        ) : data?.length > 0 ? (
+          <Slider {...settings2} className="mx-4">
+            {data.map((item) => (
+              <motion.div 
+              variants={fedIn('up', 0.2)}
+            initial="hidden"
+            whileInView="show"
+            viewport={{ once: false, amount: 0.7 }}
+              className="" key={item.id}>
                 <Link
-                  to={`/home/${media_type}/${item.id}`} // Correctly set media_type and id
+                  to={`/home/${media_type}/${item.id}`}
                   className="w-full min-w-[230px] max-w-[230px] h-80 overflow-hidden block relative hover:scale-105 transition-all rounded-lg"
                 >
                   {item?.poster_path ? (
@@ -145,12 +167,12 @@ export default function TopRatedHome() {
                     <p>{moment(item?.release_date).format("MMMM Do YYYY")}</p>
                   </div>
                 </Link>
-              </div>
-            ))
-          ) : (
-            <div className="text-white">No top rated {media_type} found.</div>
-          )}
-        </Slider>
+              </motion.div>
+            ))}
+          </Slider>
+        ) : (
+          <div className="text-white mx-4">No top rated {media_type} found.</div>
+        )}
       </div>
     </div>
   );
